@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag 'bagmon.css' %>
+
+
+<body style="background-color: #FFF; padding: 3%">
+  <div>
+  <p id="notice"><%= notice %></p>
+    <div class="container-description">
+      <div class="bagmon-description"><h1><strong>Bagmons</strong></h1></div>
+      <div class="batalha-description"><h2><%= link_to 'Batalha', battle_index_path, class: "bagmons-to-battle-link" %></h2></div>
+    </div>
+
+    <div id="bagmon-shelf">
+      <% @bagmons.each do |bagmon| %>
+          <div id="bagmon-card">
+            
+            <div id="bagmon-image">
+              <%= link_to (image_tag(bagmon.image, alt: 'fun', style: 'height:300px; width:auto;')), bagmon %>
+            </div>
+            <div id="bagmon-name"><%= bagmon.name %></div>
+          </div>
+        </a>
+      <% end %>
+    </div>
+
+  </div>
+  <br>
+</body>

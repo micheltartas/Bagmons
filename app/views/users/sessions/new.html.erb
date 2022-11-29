@@ -1,0 +1,38 @@
+<%= stylesheet_link_tag 'login.css' %>
+
+<body style="background-color: #FFF; padding: 5%; display:flex; flex-direction:row; justify-content:center;">
+
+  <div  class="second-container">
+    <%= image_tag("login.png", alt: 'fun', style: 'height:450px; width:auto; border-radius:200px; margin:20px') %>
+  </div>
+  <div class="container">
+    <div class="box">
+    <h2 id="login">Login</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="remember">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Logar" %>
+      </div>
+    <% end %>
+
+    <%= render "users/shared/links" %>
+    </div>
+  </div>
+<body>

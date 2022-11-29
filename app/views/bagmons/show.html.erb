@@ -1,0 +1,17 @@
+<%= stylesheet_link_tag 'bagmon-detail.css' %>
+
+<p id="notice"><%= notice %></p>
+
+<body style='background: <%=@bagmon.type.color %>; '>
+  <div><%= link_to '←', bagmons_path, class: "arrow-back" %></div>
+
+  <div id="display-bag-detail">
+    <div>
+      <div id=detail-name-and-type>
+        <h1><%=@bagmon.name.upcase%></h1>
+      </div>
+      <p id="bag-detail-image"><%= image_tag @bagmon.image, alt: 'fun', style: 'height:400px; width:auto;'%></p>
+      <p>Elemento: <%= @bagmon.type.name%></p>
+    </div>
+  </div>
+</body>

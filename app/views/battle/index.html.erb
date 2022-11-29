@@ -1,0 +1,81 @@
+ <body style="background-color: #FFF; padding:3%; flex-direction:column; display:flex; color:#FFF">
+    <div><%= link_to '←', bagmons_path, class: "arrow-back" %></div>
+    <div id='data' style="visibility: hidden; font-size:1px; color:#000"><%= @rounds %></div>
+    <div style="">
+        <% if @firstBagmon && @secondBagmon %>
+            <div id="result" style="background-color: ;">
+                <h2 style="text-align: center; font-weight:bold; font-size: 20px;">Result</h2>
+                <div style="flex-direction:row; display:flex; justify-content:center; align-items: center;">
+                    <div>
+                        <%= image_tag(@firstBagmon.image, alt: 'fun', style: 'height:300px; width:auto;')%>
+                    </div>
+                    <div>
+                        <%= image_tag("vs.png", alt: 'fun', style: 'height:300px; width:auto;')%>
+                    </div>
+                    <div>
+                        <%= image_tag(@secondBagmon.image, alt: 'fun', style: 'height:300px; width:auto;')%>
+                    </div>
+                </div>
+            </div>
+        <% else %>
+            <div id="titulo-batalha" style="text-align: center; font-weight:bold; font-size: 20px;"><label>Escolha um Bagmon para lutar</label></div>
+            <form action="/battle">
+                <div style="flex-direction:row; display:flex; justify-content:center; align-items: center;">
+                    <div >
+                        <label for="firstBagmon">Bagmon Aliado</label>
+                        <select required id="firstBagmon" name="firstBagmon" class="form-control">
+                            <option selected disabled>Escolha seu Bagmon</option>
+                            <% @bagmons.each do |bagmon| %>
+                                <option value="<%= bagmon.id %>"><%= bagmon.name %></option>
+                            <% end %>
+                        </select>
+                    </div>
+                    <div style="padding:20px;">
+                    <%= image_tag("vs.png", alt: 'fun', style: 'height:250px; width:auto;')%>
+                    </div>
+                    <div>
+                        <label for="secondBagmon">Bagmon Inimigo</label>
+                        <select required id="secondBagmon" name="secondBagmon">
+                            <option selected disabled>Escolha o Bagmon adversário</option>
+                            <% @bagmons.each do |bagmon| %>
+                                <option value="<%= bagmon.id %>"><%= bagmon.name %></option>
+                            <% end %>
+                        </select>
+                    </div>
+                </div>
+                <div style="flex-direction:column; display:flex; justify-content:center; align-items: center;">
+                    <button type="submit" class="btn btn-primary">BATALHA!</button>
+                </div>
+            </form>
+        <% end %>
+
+        <% if @firstBagmon && @secondBagmon %>
+            <script>
+                console.log("Bagmon 1: <%= @firstBagmon.name %>")
+                console.log("Bagmon 2: <%= @secondBagmon.name %>")
+
+                const rounds = JSON.parse(document.getElementById('data').innerHTML)
+
+                function delay(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                }
+
+                async function battle() {
+                    for (let i = 0; i < rounds.length; i++) {
+                        await delay(400);
+                        if(i % 2){
+                            allign = "left"
+                        }else{
+                            allign = "right"
+                        }
+                        document.querySelector('#result').innerHTML += `<div style="background-color: #FFF; color: #000; text-align: ${allign};">${rounds[i]}</div>`
+
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }
+                }
+                battle();
+            </script>
+        <% end %>
+    </div>
+
+</body>
